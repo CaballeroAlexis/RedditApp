@@ -32,13 +32,30 @@
     <!-- your app's js -->
     <script src="js/app.js"></script>
   </head>
-  <body ng-app="starter">
+  <body ng-app="starter" ng-controller="RedditCtrl">
 
     <ion-pane>
       <ion-header-bar class="bar-stable">
-        <h1 class="title">Ionic Blank Starter</h1>
+        <h1 class="title">RedditApp</h1>
       </ion-header-bar>
       <ion-content>
+          <ion-refresher on-refresh="doRefresh($event)">
+              <ion-refresher-content></ion-refresher-content>
+            </ion-refresher>
+          
+        <div ng-repeat="post in posts">
+          
+          <a class="item item-thumbnail-left" ng-click="openLink(post.url)" >
+            <img ng-src="{{post.thumbnail}}" ng-if="post.thumbnail.indexOf('http') === 0"/>
+           <h2>{{post.title}}</h2>
+           <p>{{post.author}}</p>
+          </a>
+          
+        </div>
+        <ion-infinite-scroll on-infinite="doInfinite()">
+            <ion-infinite-scroll-content>s</ion-infinite-scroll-content>
+        </ion-infinite-scroll>        
+       
       </ion-content>
     </ion-pane>
   </body>
